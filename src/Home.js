@@ -9,7 +9,8 @@ function Home() {
   useEffect(() => {
     fetchPosts();
   }, []);
-const API_BASE_URL = "http://ec2-3-7-45-150.ap-south-1.compute.amazonaws.com:5000";
+  const API_BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
 
   const fetchPosts = () => {
     axios
