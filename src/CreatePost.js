@@ -21,8 +21,9 @@ function CreatePost() {
     if (file) {
       formData.append("file", file);
     }
-    
-    axios.post("http://localhost:5000/api/posts", formData)
+    const API_BASE_URL = "http://ec2-3-7-45-150.ap-south-1.compute.amazonaws.com:5000";
+
+    axios.post(`${API_BASE_URL}/api/posts`, formData)
       .then(response => {
         console.log("Post created:", response.data);
         navigate("/");

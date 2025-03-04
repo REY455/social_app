@@ -9,17 +9,18 @@ function Home() {
   useEffect(() => {
     fetchPosts();
   }, []);
+const API_BASE_URL = "http://ec2-3-7-45-150.ap-south-1.compute.amazonaws.com:5000";
 
   const fetchPosts = () => {
     axios
-      .get("http://localhost:5000/api/posts")
+      .get("${API_BASE_URL}/api/posts")
       .then(response => setPosts(response.data))
       .catch(error => console.error("Error fetching posts:", error));
   };
 
   const handleLike = (postId) => {
     axios
-      .post(`http://localhost:5000/api/posts/like/${postId}`)
+      .post(`${API_BASE_URL}/api/posts/like/${postId}`)
       .then(response => {
         setPosts(posts.map(post => post._id === postId ? response.data : post));
       })
@@ -28,7 +29,7 @@ function Home() {
 
   const handleDelete = (postId) => {
     axios
-      .delete(`http://localhost:5000/api/posts/${postId}`)
+      .delete(`${API_BASE_URL}/api/posts/${postId}`)
       .then(response => {
         setPosts(posts.filter(post => post._id !== postId));
         console.log(response.data.message);
@@ -48,7 +49,7 @@ function Home() {
     if (!commentText) return;
     
     axios
-      .post(`http://localhost:5000/api/posts/comment/${postId}`, { text: commentText })
+      .post(`${API_BASE_URL}/api/posts/comment/${postId}`, { text: commentText })
       .then(response => {
         setPosts(posts.map(post => post._id === postId ? response.data : post));
         setCommentInputs({ ...commentInputs, [postId]: "" });
@@ -67,11 +68,11 @@ function Home() {
             <div>
               {post.file.match(/\.(mp4|webm)$/) ? (
                 <video width="320" height="240" controls>
-                  <source src={`http://localhost:5000/uploads/${post.file}`} type="video/mp4" />
+                  <source src={`${API_BASE_URL}/uploads/${post.file}`} type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
               ) : (
-                <img src={`http://localhost:5000/uploads/${post.file}`} alt="Post Media" />
+                <img src={`${API_BASE_URL}/uploads/${post.file}`} alt="Post Media" />
               )}
             </div>
           )}

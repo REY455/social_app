@@ -10,7 +10,7 @@ function UpdatePost() {
 
   useEffect(() => {
     // Fetch the post details using the postId from the URL
-    axios.get("http://localhost:5000/api/posts")
+    axios.get("${API_BASE_URL}/api/posts")
       .then(response => {
         const post = response.data.find(p => p._id === postId);
         if (post) {
@@ -38,7 +38,7 @@ function UpdatePost() {
     if (file) {
       formData.append("file", file);
     }
-    axios.put(`http://localhost:5000/api/posts/${postId}`, formData)
+    axios.put(`${API_BASE_URL}/api/posts/${postId}`, formData)
       .then(response => {
         console.log("Post updated:", response.data);
         navigate("/");
